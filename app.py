@@ -10,4 +10,4 @@ def home():
 
 @app.route('/hello/<user>')
 def hello(user):
-    return jsonify(response= "Hello there, %s" user)
+    return jsonify(response= "Hello there, %s" % user)
