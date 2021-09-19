@@ -1,0 +1,5 @@
+#+TITLE: flaskapp
+#+PROPERTIES
+
+This repo is just a simple flask python app to make a url to curl to test Docker containers. I use
+this repo to demo Docker's capabilities and teach people how to use it.

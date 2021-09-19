@@ -1,6 +1,8 @@
-FROM python:3.9.4-buster
+FROM python:3.9.4-alpine
 
-COPY app.py requirements.txt ./
+COPY app.py requirements.txt /opt/
+
+WORKDIR /opt
 
 RUN pip install -r requirements.txt
 
