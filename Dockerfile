@@ -1,4 +1,4 @@
-FROM python:3.11.2-alpine
+FROM python:3.12.7-alpine
 
 COPY app.py requirements.txt /opt/
 
