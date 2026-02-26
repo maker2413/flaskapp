@@ -1,13 +1,24 @@
 #!/bin/python3
 
+import datetime
+import socket
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return "The app works! Please git the '<ip>/hello/<your name>' endpoint to see it in action!\n"
+#'/api/v1/details'
+@app.route('/api/v1/details')
+def details():
+    return jsonify({
+        'time': datetime.datetime.now().strftime("%I:%M:%S%p on %d %B, %Y"),
+        'hostname': socket.gethostname()
+    })
 
-@app.route('/hello/<user>')
-def hello(user):
-    return jsonify(response= "Hello there, %s" % user)
+#'/api/v1/healthz'
+@app.route('/api/v1/healthz')
+def health():
+    # Do an actual check here
+    return jsonify({'status': 'up'}), 200
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0")
