@@ -33,3 +33,9 @@ kubectl-apply:
 
 kubectl-delete:
 	@kubectl delete -f k8s/
+
+helm-install:
+	@helm install flaskapp -n flaskapp ./charts/flaskapp --create-namespace
+
+helm-uninstall:
+	@helm uninstall flaskapp -n flaskapp

@@ -4,7 +4,8 @@ metadata:
   name: flaskapp
 spec:
   rules:
-  - http:
+  - host: "flaskapp.test.com"
+    http:
       paths:
       - pathType: Prefix
         path: /
