@@ -15,3 +15,21 @@ run:
 
 stop:
 	@docker stop flask-test
+
+create-cluster:
+	@kind create cluster
+
+delete-cluster:
+	@kind delete cluster
+
+run-lb:
+	cloud-provider-kind
+
+get-ingress-ip:
+	@kubectl get ingress flaskapp -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+kubectl-apply:
+	@kubectl apply -f k8s/
+
+kubectl-delete:
+	@kubectl delete -f k8s/
