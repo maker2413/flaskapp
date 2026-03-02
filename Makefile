@@ -39,3 +39,9 @@ helm-install:
 
 helm-uninstall:
 	@helm uninstall flaskapp -n flaskapp
+
+helm-argo-repo:
+	@helm repo add argo https://argoproj.github.io/argo-helm
+
+helm-argo-install:
+	@helm upgrade --install argocd argo/argo-cd -n argocd --create-namespace -f charts/argocd/values.yaml
