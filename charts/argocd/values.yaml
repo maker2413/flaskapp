@@ -16,11 +16,12 @@ applicationSet:
 global:
   domain: argocd.test.com
 
-certificate:
-  enabled: true
-
 server:
   ingress:
     enabled: true
-    ingressClassName: nginx
-    tls: true
+    ingressClassName: cloud-provider-kind
+    tls: false
+
+configs:
+  params:
+    server.insecure: true
