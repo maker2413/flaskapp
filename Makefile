@@ -49,7 +49,16 @@ helm-argo-uninstall:
 
 argo-password:
 	@ echo "Initial Username: admin" && \
-	echo "Initial Password: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`"
+	echo "Initial Password: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d`"
 
 get-ingress-ip:
 	@kubectl get ingress argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+helm-arc-install:
+	@helm install arc \
+	 --namespace arc-systems \
+	 --create-namespace \
+	 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+
+helm-arc-uninstall:
+	@helm uninstall arc -n arc-systems
