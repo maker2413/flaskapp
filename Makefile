@@ -62,3 +62,17 @@ helm-arc-install:
 
 helm-arc-uninstall:
 	@helm uninstall arc -n arc-systems
+
+authenticate-arc:
+	@./setup-arc.sh
+
+helm-runner-install:
+	@helm install "arc-runner-set" \
+		 --namespace "arc-runners" \
+		 --create-namespace \
+		 --set githubConfigUrl="https://github.com/maker2413/flaskapp" \
+		 --set githubConfigSecret="github-pat" \
+		 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+
+helm-runner-uninstall:
+	@helm uninstall arc-runner-set -n arc-runners
