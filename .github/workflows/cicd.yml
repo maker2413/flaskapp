@@ -35,9 +35,9 @@ jobs:
     steps:
       - name: Instal ArgoCD Cli
         run: |
-          curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
+          curl -ksSL -o argocd http://argocd-server.argocd/download/argocd-linux-amd64
           chmod +x ./argocd
-          mv ./argocd /usr/local/bin/argocd
+          sudo mv ./argocd /usr/local/bin/argocd
 
       - name: ArgoCD App Sync
         run: |
