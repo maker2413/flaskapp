@@ -1,4 +1,4 @@
-name: ci
+name: CI/CD
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
       - master
 
 jobs:
-  docker:
-    runs-on: arc-runner-set
+  ci:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -28,3 +28,22 @@ jobs:
           context: .
           push: true
           tags: maker2413/flaskapp:${{ env.COMMIT_SHA_SHORT }}
+
+  cd:
+    needs: ci
+    runs-on: arc-runner-set
+    steps:
+      - name: Instal ArgoCD Cli
+        run: |
+          curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
+          chmod +x ./argocd
+          mv ./argocd /usr/local/bin/argocd
+
+      - name: ArgoCD App Sync
+        run: |
+          argocd login argocd-server.argocd \
+            --insecure \
+            --grpc-web \
+            --username admin \
+            --password ${{ secrets.ARGOCD_PASSWORD }}
+          argocd app sync flaskapp
