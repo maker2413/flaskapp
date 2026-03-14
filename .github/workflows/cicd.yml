@@ -44,7 +44,7 @@ jobs:
       - name: Update Helm Values
         run: |
           sudo apt update
-          sudo apt install ya -y
+          sudo apt install yq -y
           yq -Yi '.image.tag = "${{needs.ci.outputs.commit_sha_short}}"' charts/flaskapp/values.yaml
 
       - name: Commit Changes
