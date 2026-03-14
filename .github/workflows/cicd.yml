@@ -2,6 +2,8 @@ name: CI/CD
 
 on:
   push:
+    paths:
+      - src/***
     branches:
       - main
       - master
@@ -29,10 +31,26 @@ jobs:
           push: true
           tags: maker2413/flaskapp:${{ env.COMMIT_SHA_SHORT }}
 
+    outputs:
+      commit_sha_short: ${{ env.COMMIT_SHA_SHORT }}
+
   cd:
     needs: ci
     runs-on: arc-runner-set
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Update Helm Values
+        run: |
+          pip install yq
+          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_sha_short}}"' charts/flaskapp/values.yaml
+
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_sha_short}}'
+
       - name: Instal ArgoCD Cli
         run: |
           curl -ksSL -o argocd http://argocd-server.argocd/download/argocd-linux-amd64
