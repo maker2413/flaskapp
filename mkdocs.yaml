@@ -1,0 +1,15 @@
+site_name: 'Flaskapp'
+site_description: 'Main documentation for flaskapp'
+repo_url: https://github.com/maker2413/flaskapp
+edit_uri: edit/master/docs
+
+plugins:
+  - techdocs-core
+  - redirects:
+      redirect_maps:
+        'index.md': 'docs/index.md'
+
+# For sidebar navigation on https://backstage.io/, see `microsite/sidebars.js`
+nav:
+  - Overview:
+      - Getting started: 'docs/index.md'

@@ -5,6 +5,7 @@ metadata:
   description: Flask app that displays the time.
   annotations:
     github.com/project-slug: maker2413/flaskapp
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   owner: development
